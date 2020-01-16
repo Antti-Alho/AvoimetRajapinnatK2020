@@ -1,0 +1,39 @@
+.idea/
+.vscode/
+build/
+node_modules/
+ormconfig.json
+ormconfig_gc.json
+tmp/
+temp
+api/src/routes/uploads/*
+
+.DS_Store
+node_modules
+/dist
+
+/tests/e2e/reports/
+selenium-debug.log
+
+# local env files
+.env.local
+.env.*.local
+.env
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+fullchain.pem
+privkey.pem
+*.pem
