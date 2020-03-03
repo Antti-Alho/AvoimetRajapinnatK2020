@@ -1,6 +1,7 @@
 import "reflect-metadata";
-import {createConnection} from "typeorm";
-import {User} from "./entity/User";
+import { createConnection } from "typeorm";
+import { User } from "./entity/User";
+import { Room } from "./entity/Room";
 
 import routes from "./routes";
 
@@ -13,7 +14,7 @@ const conn = createConnection({
     password: 'root',
     database: 'test',
     synchronize: true,
-    entities: [User]
+    entities: [User, Room]
 })
 
 export default conn;

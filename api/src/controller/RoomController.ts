@@ -18,7 +18,15 @@ export class UserController{
     };
 
     static newRoom = async (req: Request, res: Response) => {
-        res.status(201).send("User created");
+        console.log(req.body)
+        let room: Room = Object.assign( new Room(), req.body );
+        const userRepository = (await conn).manager.getRepository(Room);
+        try {
+            await userRepository.save(room);
+        } catch (e) {
+            console.log(e)
+        }
+        res.status(201).send("Room created");
     };
 
     static editRoom = async (req: Request, res: Response) => {

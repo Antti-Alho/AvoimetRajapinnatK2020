@@ -4,18 +4,27 @@
    "description": "Awesome project developed with TypeORM.",
    "devDependencies": {
       "@types/node": "^8.10.59",
+      "nodemon": "^2.0.2",
       "ts-node": "3.3.0",
       "typescript": "3.3.3333"
    },
    "dependencies": {
+      "bcryptjs": "^2.4.3",
       "body-parser": "^1.19.0",
+      "chai": "^4.2.0",
+      "chai-http": "^4.3.0",
+      "class-validator": "^0.11.0",
       "express": "^4.17.1",
+      "jsonwebtoken": "^8.5.1",
+      "mocha": "^7.1.0",
       "mysql": "^2.18.1",
       "path": "^0.12.7",
       "reflect-metadata": "^0.1.13",
       "typeorm": "^0.2.17"
    },
    "scripts": {
-      "start": "ts-node src/index.ts"
+      "start": "ts-node src/index.ts",
+      "start:watch": "nodemon",
+      "build": "tsc"
    }
 }

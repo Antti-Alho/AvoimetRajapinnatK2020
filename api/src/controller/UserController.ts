@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import conn from '../databaseConn';
+import { validate, validateOrReject } from "class-validator";
 
 import { User } from "../entity/User";
 
@@ -28,7 +29,20 @@ export class UserController{
 
     static newUser = async (req: Request, res: Response) => {
         console.log(req.body)
+        
         let user: User = Object.assign( new User(), req.body );
+
+        validate(user).then(errors => {
+            if (errors.length > 0){
+                console.log("Validation failed. errors: ", errors);
+                res.status(409).send(errors)
+            } else {
+                console.log("Validation OK")
+            }
+        });
+
+        user.hashPassword();
+        
         const userRepository = (await conn).manager.getRepository(User);
         try {
             await userRepository.save(user);
@@ -51,6 +65,15 @@ export class UserController{
         }
 
         let newUser: User = Object.assign(user, req.body);
+
+        validate(user).then(errors => {
+            if (errors.length > 0){
+                console.log("Validation failed. errors: ", errors);
+                res.status(409).send(errors)
+            } else {
+                console.log("Validation OK")
+            }
+        });
 
         try {
             await userRepository.save(newUser);

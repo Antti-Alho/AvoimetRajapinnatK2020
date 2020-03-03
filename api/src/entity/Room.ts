@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { IsInt } from "class-validator";
+ 
 import { User } from "./User";
 
 @Entity()
@@ -7,16 +9,36 @@ export class Room {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @OneToOne(type => User)
+    @JoinColumn()
     playerOne: User|null;
 
-    @Column()
-    playerTwo: User;
+    @OneToOne(type => User)
+    @JoinColumn()
+    playerTwo: User|null;
 
-    @Column()
-    playerThree: User;
+    @OneToOne(type => User)
+    @JoinColumn()
+    playerThree: User|null;
 
+    @OneToOne(type => User)
+    @JoinColumn()
+    playerFrour: User|null;
+
+    @IsInt()
     @Column()
-    playerFrour: User;
+    playerOnePoints: number;
+
+    @IsInt()
+    @Column()
+    playerTwoPoints: number;
+
+    @IsInt()
+    @Column()
+    PlayerThreePoints: number;
+
+    @IsInt()
+    @Column()
+    PlayerFourPoints: number;
 
 }

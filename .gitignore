@@ -2,11 +2,8 @@
 .vscode/
 build/
 node_modules/
-ormconfig.json
-ormconfig_gc.json
 tmp/
 temp
-api/src/routes/uploads/*
 
 .DS_Store
 node_modules
