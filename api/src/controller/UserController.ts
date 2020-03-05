@@ -15,16 +15,14 @@ export class UserController{
     static getOneById = async (req: Request, res: Response) => {
         const id: string = req.params.id;
         const userRepository = (await conn).manager.getRepository(User);
-        let user
-        console.log(id);
         try {
-            user = await userRepository.findOne(id);
-            console.log(user)
+            let user = await userRepository.findOne(id);
+            res.status(200).send(user);
         }catch(e){
             console.log(e);
             res.status(404).send("User not found");
         }
-        res.status(200).send(user);
+ 
     };
 
     static newUser = async (req: Request, res: Response) => {
@@ -36,6 +34,7 @@ export class UserController{
             if (errors.length > 0){
                 console.log("Validation failed. errors: ", errors);
                 res.status(409).send(errors)
+                return;
             } else {
                 console.log("Validation OK")
             }

@@ -9,6 +9,7 @@
       "typescript": "3.3.3333"
    },
    "dependencies": {
+      "@types/mocha": "^7.0.2",
       "bcryptjs": "^2.4.3",
       "body-parser": "^1.19.0",
       "chai": "^4.2.0",
@@ -20,11 +21,12 @@
       "mysql": "^2.18.1",
       "path": "^0.12.7",
       "reflect-metadata": "^0.1.13",
-      "typeorm": "^0.2.17"
+      "typeorm": "^0.2.24"
    },
    "scripts": {
       "start": "ts-node src/index.ts",
       "start:watch": "nodemon",
-      "build": "tsc"
+      "build": "tsc",
+      "test": "mocha -r ts-node/register tests/**/*.test.ts"
    }
 }

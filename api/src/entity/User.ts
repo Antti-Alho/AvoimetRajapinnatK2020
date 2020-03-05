@@ -1,6 +1,8 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable} from "typeorm";
 import {Length, IsEmail, Max} from "class-validator";
 import * as bcrypt from "bcryptjs";
+
+import { Room } from './Room'
 
 @Entity()
 export class User {
@@ -19,6 +21,10 @@ export class User {
     @IsEmail()
     @Column()
     email: string;
+
+    @ManyToMany(type => Room, room => room.users)
+    @JoinTable()
+    rooms: Room[];
 
     hashPassword() {
     	this.passhash = bcrypt.hashSync(this.passhash, 8);

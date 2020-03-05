@@ -1,13 +1,12 @@
 import {beforeEach, describe, it} from "mocha";
 import * as chai from 'chai';
-import * as chaiHttp from 'chai-http';
+import chaiHttp = require('chai-http');
+chai.use(chaiHttp);
 
 
 import { User } from "../src/entity/User";
-import { UserController } from "../src/controller/UserController";
-import * as app from "../src/index"
-
-import db from "./test_util/db";
+import app from "../src/index"
+import { Util } from "./test_util/util";
 
 const Jukka = new User();
 Jukka.email = "jukka@pekka.com"
@@ -25,55 +24,71 @@ Matti.name = "Matti"
 Matti.passhash = "jukk234567876543"
 
 beforeEach(async function() {
+    await Util.clear(User);
+    await Util.createAll(User,[Jukka,Matti,Pekka]);
 });
-  
-describe('#find()', function() {
-    it('responds with matching records', async function() {
-        const users = await UserController.listAll( req , res );
-        users.should.have.length(3);
-
-    });
-});
-  
-
-// Import the dependencies for testing
 
 chai.use(chaiHttp);
-chai.should();describe("Students", () => {
+chai.should();describe("Users", () => {
     describe("GET /", () => {
 
         //Test to get all students record
-        it("should get all students record", (done) => {
-             chai.request(app)
-                 .get('/')
-                 .end((err, res) => {
-                     res.should.have.status(200);
-                     res.body.should.be.a('object');
-                     done();
-                  });
+        it("should get all users", (done) => {
+            chai.request(app).get('/api/user').end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('Array');
+                done();
+            });
          });
 
-        // Test to get single student record
-        it("should get a single student record", (done) => {
-             const id = 1;
-             chai.request(app)
-                 .get(`/${id}`)
-                 .end((err, res) => {
-                     res.should.have.status(200);
-                     res.body.should.be.a('object');
-                     done();
-                  });
-         });
+        it("should get a single user", (done) => {
+            const id = 1;
+            chai.request(app).get(`/api/user/${id}`).end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                done();
+            });
+        });
          
         // Test to get single student record
-        it("should not get a single student record", (done) => {
-             const id = 5;
-             chai.request(app)
-                 .get(`/${id}`)
-                 .end((err, res) => {
-                     res.should.have.status(404);
-                     done();
-                  });
+        it("should return nothing", (done) => {
+            const id = 5;
+            chai.request(app).get(`/apu/user/${id}`).end((err, res) => {
+                res.should.have.status(404);
+                done();
+            });
+        });
+    });
+
+    describe("POST /", () => {
+
+        //Test to get all students record
+        it("should create a user", (done) => {
+            chai.request(app)
+            .post('/api/user')
+            .send({ name: 'asd', passhash: '12345678', email: 'jarimatti@hirvonen.com' })
+            .end((err, res) => {
+                res.should.have.status(201);
+                done();
+            });
          });
+
+        it("should get a single user", (done) => {
+            const id = 1;
+            chai.request(app).get(`/api/user/${id}`).end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                done();
+            });
+        });
+         
+        // Test to get single student record
+        it("should return nothing", (done) => {
+            const id = 5;
+            chai.request(app).get(`/apu/user/${id}`).end((err, res) => {
+                res.should.have.status(404);
+                done();
+            });
+        });
     });
 });

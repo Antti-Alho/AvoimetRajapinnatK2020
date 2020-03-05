@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from "typeorm";
 import { IsInt } from "class-validator";
  
 import { User } from "./User";
@@ -9,21 +9,8 @@ export class Room {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToOne(type => User)
-    @JoinColumn()
-    playerOne: User|null;
-
-    @OneToOne(type => User)
-    @JoinColumn()
-    playerTwo: User|null;
-
-    @OneToOne(type => User)
-    @JoinColumn()
-    playerThree: User|null;
-
-    @OneToOne(type => User)
-    @JoinColumn()
-    playerFrour: User|null;
+    @ManyToMany(type => User, user => user.rooms)
+    users: User[];
 
     @IsInt()
     @Column()

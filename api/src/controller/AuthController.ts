@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
-import { getRepository, MoreThan } from "typeorm";
-import { validate } from "class-validator";
+
 import { User } from "../entity/User";
 import config from "../config/config";
-import * as crypto from 'crypto';
+import conn from "../databaseConn";
 
 class AuthController {
 
@@ -13,7 +12,7 @@ class AuthController {
         if (!(email && password)) {
             res.status(400).send();
         }
-        const userRepository = getRepository(User);
+        const userRepository = (await conn).manager.getRepository(User);
         let user: User;
         try {
             user = await userRepository.findOneOrFail({ where: { email } });

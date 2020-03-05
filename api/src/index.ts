@@ -16,3 +16,6 @@ app.use('/api/', routes);
 app.listen(port, host, () => {
     console.log(`server started @ ${host}:${port}`)
 });
+
+// export app for testing purposes
+export default app;
