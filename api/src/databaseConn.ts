@@ -2,6 +2,7 @@ import "reflect-metadata";
 import { createConnection } from "typeorm";
 import { User } from "./entity/User";
 import { Room } from "./entity/Room";
+import { FileLocation } from "./entity/FileLocation";
 import config from "./config/config"
 
 import routes from "./routes";
@@ -19,7 +20,7 @@ if (conf.NODE_ENV = "test") {
         password: 'root',
         database: 'testDB',
         synchronize: true,
-        entities: [User, Room]
+        entities: [User, Room, FileLocation]
     });
 } else {
     conn = createConnection({
@@ -31,7 +32,7 @@ if (conf.NODE_ENV = "test") {
         password: 'root',
         database: 'test',
         synchronize: true,
-        entities: [User, Room]
+        entities: [User, Room, FileLocation]
     })
 }
 

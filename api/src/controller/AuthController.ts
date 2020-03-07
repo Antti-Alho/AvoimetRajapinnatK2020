@@ -9,6 +9,7 @@ class AuthController {
 
     static login = async (req: Request, res: Response) => {
         let { email, password } = req.body;
+        console.log(req.body)
         if (!(email && password)) {
             res.status(400).send();
         }

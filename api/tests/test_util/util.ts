@@ -7,8 +7,8 @@ export class Util{
 
     static clear = async (type) => {
         const repository = (await db).manager.getRepository(type);
-        await repository.query('DELETE FROM user;')
-        await repository.query('ALTER TABLE user AUTO_INCREMENT = 0;')
+        await repository.query(`DELETE FROM ${type.name.toLowerCase()};`)
+        await repository.query(`ALTER TABLE ${type.name.toLowerCase()} AUTO_INCREMENT = 0;`)
     };
 
     static createAll = async (type, elements) => {
