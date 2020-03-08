@@ -1,12 +1,12 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import { User } from "./entity/User";
-import { Room } from "./entity/Room";
-import { FileLocation } from "./entity/FileLocation";
-import config from "./config/config"
+import { User } from "../entity/User";
+import { Room } from "../entity/Room";
+import { FileLocation } from "../entity/FileLocation";
+import config from "../config/config"
 
-import routes from "./routes";
-import conf from "./config/config";
+import routes from "../routes";
+import conf from "../config/config";
 
 let conn
 

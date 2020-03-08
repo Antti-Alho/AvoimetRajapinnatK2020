@@ -5,10 +5,11 @@ import * as cors from "cors";
 import * as path from "path";
 
 import routes from "./routes/index";
+import conf from "./config/config";
 
 const app = express();
-const port = 3050;
-const host = 'localhost';
+const port = conf.PORT;
+const host = conf.HOST;
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -19,5 +20,4 @@ app.listen(port, host, () => {
     console.log(`server started @ ${host}:${port}`)
 });
 
-// export app for testing purposes
 export default app;

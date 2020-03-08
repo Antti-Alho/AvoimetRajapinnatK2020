@@ -3,7 +3,7 @@ import * as jwt from "jsonwebtoken";
 
 import { User } from "../entity/User";
 import config from "../config/config";
-import conn from "../databaseConn";
+import conn from "../util/databaseConn";
 
 class AuthController {
 

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import conn from '../databaseConn';
+import conn from '../util/databaseConn';
 import { Room } from "../entity/Room";
 
 export class UserController{

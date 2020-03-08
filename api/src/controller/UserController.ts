@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import conn from '../databaseConn';
+import conn from '../util/databaseConn';
 import { validate, validateOrReject } from "class-validator";
+import checkCards from "../util/checkCards"
 
 import { User } from "../entity/User";
 
@@ -9,6 +10,7 @@ export class UserController{
     static listAll = async (req: Request, res: Response) => {
         const userRepository = (await conn).manager.getRepository(User);
         var users = await userRepository.find();
+        checkCards('kortit.jpg');
         res.send(users);
     };
 
