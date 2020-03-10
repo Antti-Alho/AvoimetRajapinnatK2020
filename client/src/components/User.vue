@@ -12,7 +12,9 @@
             label="Password"
             v-model="user.passhash"
     ></v-text-field>
+
     <v-btn @click="createUser()">create user</v-btn>
+
   </div>
 </template>
 
@@ -26,7 +28,7 @@ export default class user extends Vue {
   private user = new User;
 
   private async createUser() {
-    const data = await axios.post('http://localhost:3050/api/user', JSON.stringify(this.user));
+    const data = await axios.post('http://localhost:3050/api/user', this.user);
   }
 }
 </script>
