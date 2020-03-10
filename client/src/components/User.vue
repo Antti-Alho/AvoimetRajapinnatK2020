@@ -12,12 +12,11 @@
             label="Password"
             v-model="user.passhash"
     ></v-text-field>
-    <v-btn :onclick=createUser()>create user</v-btn>
+    <v-btn @click="createUser()">create user</v-btn>
   </div>
 </template>
 
 <script lang="ts">
-
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import axios from 'axios';
 import {User} from './entity/user';
