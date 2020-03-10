@@ -15,8 +15,8 @@ if (conf.NODE_ENV = "test") {
         type: 'mariadb',
         host: 'localhost',
         port: 3306,
-        username: 'root',
-        password: 'root',
+        username: config.DB_USER,
+        password: config.DB_PASS,
         database: 'testDB',
         synchronize: true,
         entities: [User, Room]
@@ -27,8 +27,8 @@ if (conf.NODE_ENV = "test") {
         type: 'mysql',
         host: 'localhost',
         port: 3306,
-        username: 'root',
-        password: 'root',
+        username: config.DB_USER,
+        password: config.DB_PASS,
         database: 'test',
         synchronize: true,
         entities: [User, Room]
