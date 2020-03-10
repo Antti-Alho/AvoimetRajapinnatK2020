@@ -12,8 +12,9 @@ const port = conf.PORT;
 const host = conf.HOST;
 
 app.use(cors())
-app.use(bodyParser.json())
+app.use(express.json())
 app.use('/', express.static(path.join(__dirname, 'public')));
+
 app.use('/api/', routes);
 
 app.listen(port, host, () => {

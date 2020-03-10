@@ -6,39 +6,6 @@ import { Room } from "../entity/Room";
 
 class FileController {
 
-    static ListAllByRoomId = async (req: Request, res: Response) => {
-        const id = req.params.id;
-        const orderRepository = getRepository(FileLocation);
-        console.log(id);
-        let fileLocations: FileLocation[] = [];
-        try {
-            fileLocations = await orderRepository.find({ where: { order: id}});
-        } catch (error) {
-            res.status(404).send("no files found for this order");
-            return;
-        }
-        console.log(fileLocations);
-        res.status(200).send(fileLocations);
-    };
-
-    static download = async (req: Request, res: Response) => {
-        const id = req.params.id;
-        const orderRepository = getRepository(FileLocation);
-        let fileLocation: FileLocation;
-
-        try {
-            fileLocation = await orderRepository.findOneOrFail( {id: id} );
-        } catch (error) {
-            res.status(404).send("no files found for this order");
-            return;
-        }
-        console.log(fileLocation);
-        let pieces: string[] = fileLocation.url.split('/');
-        fileLocation.url = pieces[pieces.length-2] + '/' + pieces[pieces.length-1];
-        console.log(fileLocation.url);
-        res.status(200).send(fileLocation);
-    };
-
     static upload = async (req: Request, res: Response) => {
 
         let orderid = JSON.parse(req.fields.id as string);
