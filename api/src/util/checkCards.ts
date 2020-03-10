@@ -2,11 +2,12 @@ import * as child from 'child_process';
 import conf from '../config/config';
 
 export default async function getCards(pathToImage: String) {
-    var cmd :string = ``; 
+    var cmd :string = ``;
+    var cmd2 :string = ''; 
     if (conf.OS = 'LINUX') {
-        cmd = `darknet detector test obj.data yolo-obj.cfg yolo-testobj_3000.weights ${pathToImage}`
+        cmd = `darknet detector test obj.data yolo-obj.cfg yolo-obj_3000.weights ${pathToImage}`
     } else if (conf.OS = 'WONDOWS'){
-        cmd = `darknet.exe detector test obj.data yolo-obj.cfg yolo-testobj_3000.weights ${pathToImage}`
+        cmd = `darknet.exe detector test obj.data yolo-obj.cfg yolo-obj_3000.weights ${pathToImage}`
     } else {
         console.log('Fix your .env file! OS must be LINUX or WINDOWS');
         return;
@@ -23,5 +24,4 @@ export default async function getCards(pathToImage: String) {
         }
         console.log(`stdout: ${stdout}`);
     });
-    
 }
