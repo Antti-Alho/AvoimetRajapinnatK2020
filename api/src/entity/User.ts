@@ -31,9 +31,6 @@ export class User {
     @Column()
     hand3: string|null;
 
-    @ManyToMany(type => Room, room => room.users)
-    rooms: Room[];
-
     hashPassword() {
     	this.passhash = bcrypt.hashSync(this.passhash, 8);
   	}

@@ -9,7 +9,8 @@ export class Room {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToMany(type => User, user => user.rooms)
+    @ManyToMany(type => User)
+    @JoinTable()
     users: User[];
 
     @IsInt()
