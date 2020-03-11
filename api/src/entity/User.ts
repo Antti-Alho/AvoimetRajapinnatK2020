@@ -3,7 +3,6 @@ import {Length, IsEmail, Max} from "class-validator";
 import * as bcrypt from "bcryptjs";
 
 import { Room } from './Room'
-import { FileLocation } from './FileLocation'
 
 @Entity()
 export class User {
@@ -24,12 +23,7 @@ export class User {
     email: string;
 
     @ManyToMany(type => Room, room => room.users)
-    @JoinTable()
     rooms: Room[];
-
-    @OneToMany(type => FileLocation, file => file.user)
-    @JoinTable()
-    files: FileLocation[];
 
     hashPassword() {
     	this.passhash = bcrypt.hashSync(this.passhash, 8);

@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import { validate } from "class-validator";
-import { FileLocation } from "../entity/FileLocation";
 import { Room } from "../entity/Room";
 
 class FileController {
@@ -18,23 +17,6 @@ class FileController {
             rawfiles =  req.files.file as any as File[];
         } else {
             rawfiles = [req.files.file];
-        }
-        const fileRepository = getRepository(FileLocation);
-        let order: Room = new Room();
-        let newFiles: FileLocation[] = [];
-        
-        for (let i = 0; i < rawfiles.length; i++) {
-            const fileloc = new FileLocation();
-            fileloc.originalNuminorder = originalNums[i] as number;
-            fileloc.originalName = rawfiles[i].name;
-            newFiles.push(fileloc);
-        }
-    
-        let errors = await validate(order);
-        
-        if (errors.length > 0) {
-            res.status(400).send(errors);
-            return;
         }
 
         res.status(201).send("New Files upploaded");
