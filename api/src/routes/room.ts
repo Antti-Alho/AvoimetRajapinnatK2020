@@ -1,7 +1,7 @@
 import { Router } from "express";
 import RoomController from "../controller/RoomController";
 
-var router = Router();
+const router = Router();
 
 router.get("/", RoomController.listAll);
 
