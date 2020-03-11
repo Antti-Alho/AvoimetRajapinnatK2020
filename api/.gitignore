@@ -5,3 +5,5 @@ build/
 tmp/
 temp/
 yolo-obj_3000.weights
+src/util/data/labels/
+yolo-obj_4600.weights
