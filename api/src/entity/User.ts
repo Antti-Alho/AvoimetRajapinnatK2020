@@ -25,10 +25,6 @@ export class User {
     @ManyToMany(type => Room, room => room.users)
     rooms: Room[];
 
-    @OneToMany(type => FileLocation, file => file.user)
-    @JoinTable()
-    files: FileLocation[];
-
     hashPassword() {
     	this.passhash = bcrypt.hashSync(this.passhash, 8);
   	}
