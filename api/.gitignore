@@ -5,3 +5,4 @@ build/
 tmp/
 temp/
 yolo-obj_3000.weights
+api/src/routes/uploads/
