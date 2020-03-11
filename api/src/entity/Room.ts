@@ -2,7 +2,6 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMan
 import { IsInt } from "class-validator";
  
 import { User } from "./User";
-import { FileLocation } from "./FileLocation"
 
 @Entity()
 export class Room {
@@ -10,7 +9,8 @@ export class Room {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToMany(type => User, user => user.rooms)
+    @ManyToMany(type => User)
+    @JoinTable()
     users: User[];
 
     @IsInt()
@@ -28,9 +28,5 @@ export class Room {
     @IsInt()
     @Column()
     PlayerFourPoints: number;
-
-    @OneToMany(type => FileLocation, file => file.room)
-    @JoinTable()
-    files: FileLocation[];
 
 }
