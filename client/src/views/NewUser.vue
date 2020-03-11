@@ -1,7 +1,5 @@
 <template>
-  <div class="create user">
     <user/>
-  </div>
 </template>
 
 <script>

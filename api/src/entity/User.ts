@@ -24,7 +24,6 @@ export class User {
     email: string;
 
     @ManyToMany(type => Room, room => room.users)
-    @JoinTable()
     rooms: Room[];
 
     @OneToMany(type => FileLocation, file => file.user)

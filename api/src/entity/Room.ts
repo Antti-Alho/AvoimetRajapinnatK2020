@@ -29,8 +29,4 @@ export class Room {
     @Column()
     PlayerFourPoints: number;
 
-    @OneToMany(type => FileLocation, file => file.room)
-    @JoinTable()
-    files: FileLocation[];
-
 }
