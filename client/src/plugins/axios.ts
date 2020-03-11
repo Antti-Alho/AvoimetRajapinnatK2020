@@ -4,14 +4,14 @@ const axios = Axios.create();
 axios.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('auth');
-        if(token){
+        if (token) {
             config.headers.auth = token;
         }
-        return config
+        return config;
     },
     (error) => {
         return Promise.reject(error);
     },
-    );
+);
 
-    export default axios;
+export default axios;

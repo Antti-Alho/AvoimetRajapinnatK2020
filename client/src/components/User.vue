@@ -21,9 +21,12 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import axios from 'axios';
 import {User} from './entity/user';
 
-@Component
-export default class user extends Vue {
-  private user = new User;
+@Component({
+  components: {
+  },
+})
+export default class CreateUser extends Vue {
+  private user = new User();
 
   private async createUser() {
     const data = await axios.post('http://localhost:3050/api/user', this.user);

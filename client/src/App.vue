@@ -16,7 +16,7 @@ export default Vue.extend({
 
   components: {
     AppNavbar,
-    AppFooter
+    AppFooter,
   },
 
   data: () => ({

@@ -19,14 +19,18 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import axios from 'axios';
 import {Room} from './entity/room';
 
-@Component
+@Component({
+  components: {
+  },
+})
 export default class Rooms extends Vue {
-    private rooms = []
+  private rooms: Room[] = [];
+
   private async hae() {
     const data = await axios.get('http://localhost:3050/api/room');
-    console.log(data.data)
-    this.rooms = data.data
-    console.log(this.rooms)
+    // console.log(data.data);
+    this.rooms = data.data;
+    // console.log(this.rooms);
   }
 }
 </script>

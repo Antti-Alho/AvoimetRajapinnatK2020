@@ -1,16 +1,16 @@
 <template>
-  <div class="home">
-    <HelloWorld msg="Welcome ROOMS"/>
+  <div class="roomList">
+    <Rooms/>
   </div>
 </template>
 
 <script>
-import HelloWorld from '@/components/Rooms.vue';
+import Rooms from '@/components/Rooms.vue';
 
 export default {
-  name: 'Home',
+  name: 'rooms',
   components: {
-    HelloWorld,
+    Rooms,
   },
 };
 </script>

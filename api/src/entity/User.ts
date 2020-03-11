@@ -22,6 +22,15 @@ export class User {
     @Column()
     email: string;
 
+    @Column()
+    hand1: string|null;
+
+    @Column()
+    hand2: string|null;
+
+    @Column()
+    hand3: string|null;
+
     @ManyToMany(type => Room, room => room.users)
     rooms: Room[];
 

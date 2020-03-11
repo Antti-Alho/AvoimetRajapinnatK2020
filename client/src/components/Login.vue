@@ -18,9 +18,9 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import axios from 'axios';
 
 @Component
-export default class login extends Vue {
-  private email="";
-  private pass="";
+export default class Login extends Vue {
+  private email: string = '';
+  private pass: string = '';
 
   private async login() {
     const jwt = await axios.post('http://localhost:3050/api/auth/login', {email: this.email, password: this.pass});

@@ -1,14 +1,16 @@
 <template>
-    <user/>
+  <div class="createuser">
+    <CreateUser/>
+  </div>
 </template>
 
 <script>
-import user from '@/components/User.vue';
+import CreateUser from '@/components/User.vue';
 
 export default {
-  name: 'create user',
+  name: 'createuser',
   components: {
-    user,
+    CreateUser,
   },
 };
 </script>
