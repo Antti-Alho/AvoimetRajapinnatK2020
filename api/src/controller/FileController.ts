@@ -1,76 +1,58 @@
 import { Request, Response } from "express";
+import checkCards from "../util/checkCards";
+import { File } from "formidable";
 import { getRepository } from "typeorm";
-import { validate } from "class-validator";
-import { FileLocation } from "../entity/FileLocation";
 import { Room } from "../entity/Room";
+
+var Hand = require("../util/pokersolver").Hand;
 
 class FileController {
 
-    static ListAllByRoomId = async (req: Request, res: Response) => {
-        const id = req.params.id;
-        const orderRepository = getRepository(FileLocation);
-        console.log(id);
-        let fileLocations: FileLocation[] = [];
-        try {
-            fileLocations = await orderRepository.find({ where: { order: id}});
-        } catch (error) {
-            res.status(404).send("no files found for this order");
-            return;
-        }
-        console.log(fileLocations);
-        res.status(200).send(fileLocations);
-    };
+    static upload = async (req, res) => {
 
-    static download = async (req: Request, res: Response) => {
-        const id = req.params.id;
-        const orderRepository = getRepository(FileLocation);
-        let fileLocation: FileLocation;
-
-        try {
-            fileLocation = await orderRepository.findOneOrFail( {id: id} );
-        } catch (error) {
-            res.status(404).send("no files found for this order");
-            return;
-        }
-        console.log(fileLocation);
-        let pieces: string[] = fileLocation.url.split('/');
-        fileLocation.url = pieces[pieces.length-2] + '/' + pieces[pieces.length-1];
-        console.log(fileLocation.url);
-        res.status(200).send(fileLocation);
-    };
-
-    static upload = async (req: Request, res: Response) => {
-
-        let orderid = JSON.parse(req.fields.id as string);
-        let originalNums = JSON.parse(req.fields.originalNums as string);
-
-        // req.files.file is array if there are multiple files.
-        // but its a file if there is only one file.
+        let userid = res.locals.userId
         let rawfiles: File[] = req.files.file as any as File[];
         if (rawfiles.length >= 2) {
             rawfiles =  req.files.file as any as File[];
         } else {
             rawfiles = [req.files.file];
-        }
-        const fileRepository = getRepository(FileLocation);
-        let order: Room = new Room();
-        let newFiles: FileLocation[] = [];
-        
-        for (let i = 0; i < rawfiles.length; i++) {
-            const fileloc = new FileLocation();
-            fileloc.originalNuminorder = originalNums[i] as number;
-            fileloc.originalName = rawfiles[i].name;
-            newFiles.push(fileloc);
-        }
-    
-        let errors = await validate(order);
-        
-        if (errors.length > 0) {
-            res.status(400).send(errors);
-            return;
-        }
+        } 
 
-        res.status(201).send("New Files upploaded");
+        console.log(rawfiles[0].path)
+        try {
+            var string = await checkCards(rawfiles[0].path)
+            console.log(string)
+            var rows = string.split('\n')
+            var c = []
+            for (let i = 5; i < rows.length - 1; i++) {
+                var array = rows[i].split(':');
+                c[i-5] = array[0].replace("10","T")              
+            }
+            c = Array.from(new Set(c))
+            var rawHand1 = [c[0],c[1],c[2],c[3],c[4]]
+            var rawHand2 = [c[5],c[6],c[7],c[8],c[9]]
+            var rawHand3 = [c[10],c[11],c[12]]
+            console.log(rawHand1,rawHand2,rawHand3)
+
+            var hand1 = Hand.solve(rawHand1)
+            var hand2 = Hand.solve(rawHand2)
+            var hand3 = Hand.solve(rawHand3)
+            console.log(rawHand1 , hand1.descr, rawHand2 , hand2.descr, rawHand3 , hand3.descr)
+            console.log("Voittaja "+Hand.winners([hand1, hand2]))
+            res.status(200).send();
+        } catch (e){
+            console.log(e)
+            res.status(500).send("Internal server error!");
+        }
+        /* 
+        let userid = res.locals.userId
+        let rawfiles: File[] = req.files.file as any as File[];
+        if (rawfiles.length >= 2) {
+            rawfiles =  req.files.file as any as File[];
+        } else {
+            rawfiles = [req.files.file];
+        } 
+        */
     };
 
 }

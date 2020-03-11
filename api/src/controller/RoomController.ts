@@ -30,6 +30,14 @@ export class UserController{
     };
 
     static editRoom = async (req: Request, res: Response) => {
+        console.log(req.body)
+        let room: Room = Object.assign( new Room(), req.body );
+        const userRepository = (await conn).manager.getRepository(Room);
+        try {
+            await userRepository.save(room);
+        } catch (e) {
+            console.log(e)
+        }
         res.status(200).send("Edit successful");
     };
 

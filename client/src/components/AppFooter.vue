@@ -1,7 +1,8 @@
 <template>
   <div align="center">
-    <p class="copyright">footer :--DD</p>
+    <p class="copyright">&copy; :---DD</p>
   </div>
+
 </template>
 
 <script lang='ts'>

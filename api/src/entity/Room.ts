@@ -17,6 +17,9 @@ export class Room {
     @Column()
     playerOnePoints: number;
 
+    @Column()
+    hand1: string;
+
     @IsInt()
     @Column()
     playerTwoPoints: number;
