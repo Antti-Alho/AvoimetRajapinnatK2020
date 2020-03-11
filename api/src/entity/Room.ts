@@ -2,7 +2,6 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMan
 import { IsInt } from "class-validator";
  
 import { User } from "./User";
-import { FileLocation } from "./FileLocation"
 
 @Entity()
 export class Room {

@@ -3,7 +3,6 @@ import {Length, IsEmail, Max} from "class-validator";
 import * as bcrypt from "bcryptjs";
 
 import { Room } from './Room'
-import { FileLocation } from './FileLocation'
 
 @Entity()
 export class User {
