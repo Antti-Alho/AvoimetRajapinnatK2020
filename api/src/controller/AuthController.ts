@@ -12,6 +12,7 @@ class AuthController {
         console.log(req.body)
         if (!(email && password)) {
             res.status(400).send();
+            return;
         }
         const userRepository = (await conn).manager.getRepository(User);
         let user: User;
@@ -20,6 +21,7 @@ class AuthController {
         } catch (error) {
             res.status(401).send("Invalid email or Password");
             console.log(error);
+            return
         }
 
         if (!user.checkPass(password)) {
@@ -28,7 +30,7 @@ class AuthController {
         }
 
         const token = jwt.sign(
-            { userId: user.id, email: user.email, firstname: user.name },
+            { id: user.id, },
             config.jwtSecret,
             { expiresIn: "4h" }
         );

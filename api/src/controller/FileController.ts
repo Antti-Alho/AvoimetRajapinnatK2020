@@ -1,8 +1,7 @@
-import { Request, Response } from "express";
 import checkCards from "../util/checkCards";
 import { File } from "formidable";
-import { getRepository } from "typeorm";
-import { Room } from "../entity/Room";
+import { User } from "../entity/User";
+import conn from "../util/databaseConn";
 
 var Hand = require("../util/pokersolver").Hand;
 
@@ -10,13 +9,22 @@ class FileController {
 
     static upload = async (req, res) => {
 
-        let userid = res.locals.userId
+        let userid = res.locals.jwtPayload.id
         let rawfiles: File[] = req.files.file as any as File[];
         if (rawfiles.length >= 2) {
             rawfiles =  req.files.file as any as File[];
         } else {
             rawfiles = [req.files.file];
         } 
+
+        let user: User = new User();
+        const userRepository = (await conn).manager.getRepository(User);
+        try {
+            user = await userRepository.findOne(userid);
+        }catch(e){
+            console.log(e);
+            res.status(404).send("User not found");
+        }
 
         console.log(rawfiles[0].path)
         try {
@@ -29,30 +37,16 @@ class FileController {
                 c[i-5] = array[0].replace("10","T")              
             }
             c = Array.from(new Set(c))
-            var rawHand1 = [c[0],c[1],c[2],c[3],c[4]]
-            var rawHand2 = [c[5],c[6],c[7],c[8],c[9]]
-            var rawHand3 = [c[10],c[11],c[12]]
-            console.log(rawHand1,rawHand2,rawHand3)
-
-            var hand1 = Hand.solve(rawHand1)
-            var hand2 = Hand.solve(rawHand2)
-            var hand3 = Hand.solve(rawHand3)
-            console.log(rawHand1 , hand1.descr, rawHand2 , hand2.descr, rawHand3 , hand3.descr)
-            console.log("Voittaja "+Hand.winners([hand1, hand2]))
-            res.status(200).send();
+            user.hand1 = JSON.stringify([c[0],c[1],c[2],c[3],c[4]])
+            user.hand2 = JSON.stringify([c[5],c[6],c[7],c[8],c[9]])
+            user.hand3 = JSON.stringify([c[10],c[11],c[12]])
+            console.log(user.hand1,user.hand2,user.hand3)
+            await userRepository.save(user);
+            res.status(200).send("hand data saved to user");
         } catch (e){
             console.log(e)
             res.status(500).send("Internal server error!");
         }
-        /* 
-        let userid = res.locals.userId
-        let rawfiles: File[] = req.files.file as any as File[];
-        if (rawfiles.length >= 2) {
-            rawfiles =  req.files.file as any as File[];
-        } else {
-            rawfiles = [req.files.file];
-        } 
-        */
     };
 
 }
