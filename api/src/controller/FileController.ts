@@ -49,9 +49,5 @@ class FileController {
         }
     };
 
-    static points = async (req ,res) => {
-        
-    }
-
 }
 export default FileController;
