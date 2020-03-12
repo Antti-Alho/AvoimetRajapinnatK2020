@@ -23,13 +23,16 @@ export class User {
     email: string;
 
     @Column()
-    hand1: string|null;
+    points: number = 0;
 
     @Column()
-    hand2: string|null;
+    hand1: string = "";
 
     @Column()
-    hand3: string|null;
+    hand2: string = "";
+
+    @Column()
+    hand3: string = "";
 
     hashPassword() {
     	this.passhash = bcrypt.hashSync(this.passhash, 8);

@@ -13,23 +13,4 @@ export class Room {
     @JoinTable()
     users: User[];
 
-    @IsInt()
-    @Column()
-    playerOnePoints: number;
-
-    @Column()
-    hand1: string;
-
-    @IsInt()
-    @Column()
-    playerTwoPoints: number;
-
-    @IsInt()
-    @Column()
-    PlayerThreePoints: number;
-
-    @IsInt()
-    @Column()
-    PlayerFourPoints: number;
-
 }
