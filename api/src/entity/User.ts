@@ -26,13 +26,13 @@ export class User {
     points: number = 0;
 
     @Column()
-    hand1: string = "";
+    hand1: string = "{}";
 
     @Column()
-    hand2: string = "";
+    hand2: string = "{}";
 
     @Column()
-    hand3: string = "";
+    hand3: string = "{}";
 
     hashPassword() {
     	this.passhash = bcrypt.hashSync(this.passhash, 8);

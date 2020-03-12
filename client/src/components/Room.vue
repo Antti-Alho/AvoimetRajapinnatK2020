@@ -97,6 +97,10 @@ export default class GameRoom extends Vue {
     this.room = response.data;
   }
 
+  private points(){
+
+  }
+
   private async submit() {
     const formData = new FormData();
 
@@ -105,7 +109,6 @@ export default class GameRoom extends Vue {
     });
     try {
       let response = await axios.post('http://localhost:3050/api/file/upload', formData, this.ajaxconfig);
-      console.log(response.data)
       this.getRoomData()
     } catch (error) {
       this.error = true;

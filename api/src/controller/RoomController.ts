@@ -14,8 +14,10 @@ export class RoomController{
 
     static getOneById = async (req: Request, res: Response) => {
         const roomRepository = (await conn).manager.getRepository(Room);
-        var room = await roomRepository.find({ where: { id: req.params.id }, relations: ["users"] });
-        res.status(200).send(room[0]);
+        var room = await roomRepository.findOne({ where: { id: req.params.id }, relations: ["users"] });
+        //room.checkHands();
+        //await roomRepository.save(room)
+        res.status(200).send(room);
     };
 
     static newRoom = async (req: Request, res: Response) => {
